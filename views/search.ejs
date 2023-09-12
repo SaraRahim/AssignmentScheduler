@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-between align-items-centre pt-3 pb-2 mb-3 border-bottom"> <!-- Background colors, placement, spacing -->
+    <h1>Search Results</h1> 
+    
+        <div class="btn-toolbar">
+                <a href="/add" class="btn btn-dark btn-lg" >New Assignment</a>
+        </div>
+    </div>
+
+<div class="table-responsive">
+    <% if (assignments != "") { %> <!-- if its not empty then return results -->
+        <table class="table table-striped table-dark table-sm"> <!-- Background colors, placement, spacing -->
+
+            <!-- COLUMN HEADER -->
+            <thead> <!-- table row for columns -->
+                <tr>
+                    <th scope="col">Owner Name</th>  <!-- column 1 -->
+                    <th scope="col">Module Name</th>  <!-- column 2 -->
+                    <th scope="col">Assignment Name</th>  <!-- column 3 -->
+                    <th scope="col">Assignment Weight</th>  <!-- column 4 -->
+                    <th scope="col">Description</th>  <!-- column 5 -->
+                    <th scope="col">Due Date</th>  <!-- column 6 -->
+                    <th scope="col">Action</th>  <!-- column 7 -->
+                </tr>
+            </thead>
+
+            <!-- BODY -->
+            <tbody>
+                <% assignments.forEach(assignment => { %> <!-- find from assignments schema -->
+                    <tr class="align-middle">
+                    <td><%= assignment.ownerName %></td> <!-- displaying owner -->
+                    <td><%= assignment.moduleName %></td> <!-- displaying module -->
+                    <td><%= assignment.assignmentName %></td> <!-- displaying name -->
+                    <td><%= assignment.weight %></td> <!-- displaying weight -->
+                    <td><%= assignment.description %></td> <!-- displaying description -->
+                    <td><%= assignment.dueDate %></td> <!-- displaying duedate -->
+                    <td>     
+                        <div class="d-flex justify-content-end gap-2"> <!-- button alignment and spacing -->
+            
+                        <a href="/view/<%= assignment._id %>" type="button" class="btn btn-light btn-small"> <!-- view button -->
+                          <i class="bi bi-eye"></i> <!-- eye icon ... Bootstrap -->
+                        </a>
+          
+                        <a href="/edit/<%= assignment._id %>" type="button" class="btn btn-secondary btn-small"> <!-- edit button -->
+                          <i class="bi bi-pencil"></i> <!-- pencil icon ... Bootstrap -->
+                        </a>
+          
+                        <form action="/edit/<%= assignment._id %>?_method=DELETE" method="POST" class="position-relative" onsubmit="return confirm('Are you sure you want to delete this?');"> <!-- delete button -->
+                          <button type="submit" class="btn btn-danger btn-small">
+                            <i class="bi bi-trash3"></i> <!-- rubbish icon ... Bootstrap -->
+                          </button>
+                        </form>
+                      </div>
+                     </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else {%> <!-- if its empty then return -->
+        <h2>No results found.</h2>
+    <% } %>
+</div>

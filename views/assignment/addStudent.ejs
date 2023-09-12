@@ -1,0 +1,62 @@
+<!-- ADD STUDENT PAGE -->
+<div class="container-fluid bg-dark pt-3 border-bottom"> <!-- Background colors, placement, spacing -->
+    <h1 class="h2" >New Student</h1>
+        <div>
+            <!-- Breadcrumb nav to navigate to back to dashboard -->
+            <nav aria-label="breadcrumb" style="color: #fff;">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">DashBoard </a></li> <!-- Previous -->
+                    <li class="breadcrumb-item active" style="color: #fff;">New Student</li> <!-- Current -->
+                </ol>
+            </nav>
+        </div>
+
+<!-- FORM to add a new student to the Student Schema -->
+<form action="/addStudent" method="POST">
+    <div class="row mb-4"> <!-- placement and alignment of forms-->
+        <div class="col">
+            <label for="studentName">Student Name</label> <!-- Student Name -->
+            <input type="text" class="form-control" name="studentName" id="studentName" value="" placeholder="Sara Rahim" required>
+        </div>
+
+        <!-- JAVASCRIPT TO VALIDATE STUDENT NAME ENTRY-->
+        <script>
+            const studentNameInput = document.getElementById('studentName');
+            studentNameInput.addEventListener('input', function() {
+                const enteredValue = studentNameInput.value;
+                const isValid = /^[A-Za-z\s]+$/.test(enteredValue); // /^[A-Za-z\s]+$/ - this means only leters a-z/A-Z and blank spaces are allowed
+                
+                if (!isValid) { // if input is not valid a popup message displays and alerts the user
+                    studentNameInput.setCustomValidity('Only letters and spaces are allowed');
+                } else { // if input is valid no popup will display
+                    studentNameInput.setCustomValidity('');
+                }
+            });
+        </script>
+        
+        <div class="col">
+            <label for="studentNumber">Student ID</label> <!-- Student Number/ID -->
+            <input type="text" class="form-control" name="studentNumber" id="studentNumber" value="" placeholder="R00211761" required>
+        </div>
+
+        <!-- JAVASCRIPT TO VALIDATE STUDENT NUMBER ENTRY-->
+        <script>
+            const studentNumberInput = document.getElementById('studentNumber');
+            studentNumberInput.addEventListener('input', function() {
+                const enteredValue = studentNumberInput.value;
+                const isValid = /^R\d{8}\s?$/.test(enteredValue); // /^R\d{8}\s?$/ - this means only R followed by 8 digits and a blank space at the end is allowed
+
+                if (!isValid) { // if input is not valid a popup message displays and alerts the user
+                    studentNumberInput.setCustomValidity('Invalid format. Expected: R followed by 8 digits and an optional space.');
+                } else { // if input is valid no popup will display
+                    studentNumberInput.setCustomValidity('');
+                }
+            });
+        </script>
+        </div>
+    
+
+    <div class="mb-4"> <!-- spacing for the submit button -->
+        <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to add this student?')">Submit Student</button> <!-- Button type and style -->
+    </div>
+</form>

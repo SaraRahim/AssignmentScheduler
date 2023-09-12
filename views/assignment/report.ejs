@@ -1,0 +1,19 @@
+<!-- HEADER FOR REPORT PAGE -->
+<header class="navbar navbar-dark bg-dark justify-content-center">
+  <h2 style="color: #fff;">Find an Assignment Report Schedule<br>
+    <p style="font-size: medium;">Enter the name of a Student below</p>
+
+    <!-- SEARCH BAR-->
+    <form class=" col-md-auto flex-fill" role="search" method="POST" action="/searchReports"> <!-- Styling, method and action-->
+      <input type="search" name="searchTerm" class="form-control form-control-dark" placeholder="Search..." aria-label="Search"> <!-- SEARCHTERM - very important-->
+    </form>
+  </h1>
+</header>
+
+<!-- Breadcrumb nav to navigate to back to dashboard -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-dark p-2" >
+      <li class="breadcrumb-item"><a href="/">  DashBoard</a></li>  <!-- Previous -->
+      <li class="breadcrumb-item active" style="color: #fff;">View Assignment Schedule Reports</li>  <!-- Current -->
+  </ol>
+</nav>

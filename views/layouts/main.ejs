@@ -1,0 +1,39 @@
+<!-- LAYOUT TEMPLATE -->
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- HEADER -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- compatable on different size screens -->
+
+        <!-- Includes title from assignmentController -->
+        <title><%= locals.title %></title>
+        <!-- Includes description from assignmentController -->
+        <meta name ="description" content = "<%= locals.description %>">
+
+        <!-- BOOTSTRAP LINK, FOR REFERENCE AND USE OF BOOTSTRAP ICONS AND STYLES -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+        <!-- Link to CSS page - main.css -->
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+
+    <!-- BODY -->
+    <body>
+
+        <%- include('../partials/header.ejs') %> <!-- EJS to include header page-->
+
+        <%- include('../partials/sidebar.ejs') %> <!-- EJS to include Sidebar page -->
+
+            <main class="ms-sm-auto col-lg-10 px-md-4"> <!-- stying for the body of the page -->
+                <%- body %> <!-- body of each page goes in here -->
+            </main> 
+    </body>
+
+        <main class="ms-sm-auto col-lg-10 px-md-4"> <!-- positioning of the footer -->
+            <%- include('../partials/footer.ejs') %> <!-- EJS to include the footer page -->
+        </main> 
+</html>

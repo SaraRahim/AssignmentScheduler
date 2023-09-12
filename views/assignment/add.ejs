@@ -1,0 +1,55 @@
+<!-- ADD REPORT PAGE -->
+<div class="container-fluid bg-dark pt-3 border-bottom"> <!-- Background colors, placement, spacing -->
+  <h1 class="h2" >New Report</h1>
+      <div>
+          <!-- Breadcrumb nav to navigate to back to dashboard -->
+          <nav aria-label="breadcrumb" style="color: #fff;">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">DashBoard </a></li> <!-- Previous -->
+                  <li class="breadcrumb-item active" style="color: #fff;">New Report</li> <!-- Current -->
+              </ol>
+          </nav>
+      </div>
+
+  <form action="/add" method="POST">a
+    <div class="form-group">
+      <!-- select field for selecting an assignment -->
+      <label for="selectedAssignment">Select an Assignment:</label>
+      <select name="selectedAssignment" id="selectedAssignment" class="form-control" required>
+          <option value="" disabled selected>Select an Assignment...</option>
+          <% if (assignments.length > 0) {
+              assignments.forEach(assignment => {
+                  if (assignment.assignmentName && assignment.moduleName) { %> // gets value based on id, if both have values then it will return 
+                      <option value="<%= assignment._id %>">
+                          Assignment: <%= assignment.assignmentName %>, Module: <%= assignment.moduleName %>,
+                          Due Date: <%= assignment.dueDate %>, Weight: <%= assignment.weight %>
+                      </option>  // displays the name, module, duedate and weight of the assignment
+                  <% }
+              });
+          } else { %>
+              <option value="" disabled>No assignments available</option> // if no assignments are found then "no assignments available" will come up
+          <% } %>
+      </select>
+  </div>  
+
+    <div class="form-group">
+      <label for="selectedStudent">Select a Student:</label>
+      <select name="selectedStudent" id="selectedStudent" class="form-control" required>
+        <option value="" disabled selected>Select a Student...</option> 
+        <% if (students.length > 0) {
+            students.forEach(student => { %>
+              <% if (student.studentName && student.studentNumber) { %> // gets value based on id, if both have values then it will return 
+                <option value="<%= student._id %>"> 
+                  Name: <%= student.studentName %>, StudentID: <%= student.studentNumber %> 
+                </option> // displays the name and number of the student
+            <% }})
+          } else { %>
+            <option value="" disabled>No students available</option> // if no students are found then "no students available" will come up
+        <% } %>
+      </select>
+    </div>
+    
+    <div class="mb-4 mt-4 "> 
+    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to add this report?')">Assign Assignment</button>
+    </div>
+</form>

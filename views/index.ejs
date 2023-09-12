@@ -1,0 +1,116 @@
+<!-- INDEX PAGE - MAIN LAYOUT PAGE -->
+<div class="d-flex justify-content-between pt-3 pb-2"> <!-- styling and spacing for buttons -->
+    <div class="btn-toolbar">
+        <div class="btn-group">
+
+          <!-- BUTTONS WITH LINKS TO REDIRECT THE PAGE -->
+          <a href="/addStudent" class="btn btn-dark btn-lg">New Student</a>
+          <span class="button-space"></span>
+            <a href="/add" class="btn btn-dark btn-lg">New Assignment Schedule</a>
+            <span class="button-space"></span>
+            <a href="/addAssignment" class="btn btn-dark btn-lg">New Assignment</a>
+            <span class="button-space"></span>
+            <a href="/report" class="btn btn-dark btn-lg">View Schedule</a>
+            <span class="button-space"></span>
+            <a href="/viewStudent" class="btn btn-dark btn-lg">View Student</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main text of the homepage -->
+<h1 class="bg-dark p-2" style="color: #fff;">Viewing Created Assignments</h1>
+
+<!-- ALLOWING SPACE FOR THE POPUP MESSAGES -->
+<% messages.forEach((element, index) => { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert-<%= index %>">
+      <%= element %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> <!-- close the popup -->
+    </div>
+
+    <script>
+      setTimeout(function() { // gets rid of itself after 10 seconds 
+        document.getElementById('alert-<%= index %>').remove();
+      }, 10000);
+    </script>
+  <% }) %>
+  
+
+  <!-- TABLE OF CONTENTS DISPLAYING EXISTING ASSIGNMENTS -->
+<div class="table-responsive">
+    <table class="table table-striped table-dark">
+      
+        <!-- COLUMN HEADER -->
+        <thead> 
+            <tr> <!-- table row for columns -->
+                <th scope="col">Module Name</th>
+                <th scope="col">Assignment Weight</th>
+                <th scope="col"> Assignment DueDate</th>
+                <th scope="col">Assignment Name</th>
+                <th scope="col" class="text-end">Assignment Action</th>
+            </tr>
+        </thead>
+        
+        <!-- BODY -->
+        <tbody>
+            <% assignments.forEach(assignment => { %> <!-- if they are all not empty then display -->
+            <% if (assignment.moduleName && assignment.weight && assignment.dueDate && assignment.assignmentName) { %>
+              <tr class="align-middle">
+                <!-- fetches data from the assignment schema -->
+                <td><%= assignment.moduleName %></td>
+                <td><%= assignment.weight %>%</td>
+                <td><%= assignment.dueDate %></td>
+                <td><%= assignment.assignmentName %></td>
+                <td class="text-end">
+                        <div class="d-flex flex-row justify-content-end gap-2"> <!-- layout and spacing for buttons -->
+            
+                          <a href="/view/<%= assignment._id %>" type="button" class="btn btn-light btn-small">
+                            <i class="bi bi-eye"></i> <!-- eye icon ... Bootstrap -->
+                          </a>
+            
+                          <a href="/edit/<%= assignment._id %>" type="button" class="btn btn-secondary btn-small">
+                            <i class="bi bi-pencil"></i> <!-- pencil icon ... Bootstrap -->
+                          </a>
+            
+                          <form action="/edit/<%= assignment._id %>?_method=DELETE" method="POST" class="position-relative" onsubmit="return confirm('Are you sure you want to delete this?');">
+                            <button type="submit" class="btn btn-danger btn-small">
+                              <i class="bi bi-trash3"></i> <!-- rubbish ... Bootstrap -->
+                            </button>
+                          </form>
+                        </div>
+                    </td>
+                </tr>
+            <% } %>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<!-- rendering the pages and buttons for pages -->
+<% if (assignments.length > 0) { %> <!-- only displays when assignments is not empty -->
+  <nav aria-label="DashBoard Pagination">
+      <ul class="pagination justify-content-center mt-5">
+        <!-- first page link -->
+          <% if (current > 1) { %> 
+              <li class="page-item"><a href="/?page=1" class="page-link">First</a></li>
+          <% } %>
+          <!-- gets the starting index of the page -->
+          <% var i = Math.max(current - 2, 1) %> <!-- shows 2 links before and after the current page -->
+
+          <!-- if index is not 1 it will display ... to shoew more pages before -->
+          <% if (i !== 1) { %>
+              <li class="page-item disabled"><a href="#" class="page-link">...</a></li>
+          <% } %>
+
+          <!-- generates individual page links -->
+          <% for (; i <= Math.min(current + 2, pages); i++) { %>
+              <li class="page-item <%= i === current ? 'disabled' : '' %>">
+                  <a href="/?page=<%= i %>" class="page-link"><%= i %></a>
+              </li>
+          <% } %>
+          <!-- if page is not the last one it wont display the last page link -->
+          <% if (current < pages) { %>
+              <li class="page-item"><a href="/?page=<%= pages %>" class="page-link">Last</a></li>
+          <% } %>
+      </ul>
+  </nav>
+<% } %>

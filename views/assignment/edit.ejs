@@ -1,0 +1,148 @@
+  <!-- EDIT ASSIGNMENT PAGE -->
+<div class="container-fluid bg-dark pt-3 pb-2 mb-3 border-bottom"> <!-- Background colors, placement, spacing -->
+  <div>
+  <h1 class="h2" style="color: white;">Edit <%= assignment.assignmentName %> || <%= assignment.moduleName %></h1> <!-- Displays the name and module of the assignment thats being edited -->
+      <div>
+          <!-- Breadcrumb nav to navigate to back to dashboard -->
+          <nav aria-label="breadcrumb" style="color: #fff;">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">DashBoard </a></li> <!-- Previous -->
+                  <li class="breadcrumb-item active" style="color: #fff;">Edit Assignment</li> <!-- Current -->
+              </ol>
+          </nav>
+ 
+        <!-- Displays the last updated time and assignmentID -->
+        <div class="col text-end fw-lighter"> <!-- placement and alignment of forms-->
+            <b class="viewpage">Last Updated <%= new Date(assignment.updatedAt).toUTCString() %></b><br>
+            <b class="viewpage">Assignment ID:<%= assignment._id %></b>
+        </div>
+    </div>
+</div>
+
+<!-- Displays the assignment that was clicked on -->
+<form action="/edit/<%= assignment._id %>?_method=PUT" method="POST">
+    <div class="row mb-4"> <!-- placement and alignment of forms-->
+        <div class="col">
+            <label for="ownerName">Owner Name</label> <!-- Owner Name -->
+            <input type="text" class="form-control" name="ownerName" id="ownerName" value="<%= assignment.ownerName %>" placeholder="Sara Rahim" required>
+        </div>
+            
+        <!-- JAVASCRIPT TO VALIDATE OWNER NAME ENTRY-->
+        <script>
+          const ownerNameInput = document.getElementById('ownerName');
+          ownerNameInput.addEventListener('input', function() {
+            const enteredValue = ownerNameInput.value;
+            const isValid = /^[A-Za-z\s]+$/.test(enteredValue); // /^[A-Za-z\s]+$/ - this means only leters a-z/A-Z and blank spaces are allowed
+        
+            if (!isValid) { // if input is not valid a popup message displays and alerts the user
+              ownerNameInput.setCustomValidity('Only letters and spaces are allowed');
+            } else { // if input is valid no popup will display
+              ownerNameInput.setCustomValidity('');
+            }
+          });
+        </script>
+
+      <div class="col">
+          <label for="moduleName">Module Name</label> <!--  Module Name -->
+          <input type="text" class="form-control" name="moduleName" id="moduleName" value="<%= assignment.moduleName %>" placeholder="ServerSide Web Dev" required>
+      </div>
+    </div>
+       <!-- JAVASCRIPT TO VALIDATE OWNER NAME ENTRY-->
+      <script>
+        const moduleNameInput = document.getElementById('moduleName');
+        moduleNameInput.addEventListener('input', function() {
+          const enteredValue = moduleNameInput.value;
+          const isValid = /^[A-Za-z]{4}\d{4}$/.test(enteredValue); // /^[A-Za-z]{4}\d{4}$/ - this means only letters a-z/A-Z and 4 numbers and spaces at the end are allowed
+
+          if (!isValid) { // if input is not valid a popup message displays and alerts the user
+            moduleNameInput.setCustomValidity('Only 4 letters and 4 numbers is allowed - eg. SOFT7004');
+          } else { // if input is valid no popup will display
+            moduleNameInput.setCustomValidity('');
+          }
+        });
+      </script>
+
+
+<div class="row mb-4"> <!-- placement and alignment of forms-->
+    <div class="col">
+        <label for="weight">Assignment Weight</label>
+        <input type="number" class="form-control" name="weight" id="weight" value="<%= assignment.weight %>" placeholder="10%" required>
+    </div>
+          <!-- JAVASCRIPT TO VALIDATE ASSIGNMENT WEIGHT ENTRY-->
+          <script>
+            const weightInput = document.getElementById('weight');
+            weightInput.addEventListener('input', function() {
+              const enteredValue = weightInput.value;
+      
+              if (enteredValue < 0 || enteredValue > 100) { // only values between 0-100 are allowed, if greater than 100 or less than 0 popup message displays and alerts the user
+                weightInput.setCustomValidity('Please enter a percentage between 0 and 100');
+              } else { // if input is valid no popup will display
+                weightInput.setCustomValidity('');
+              }
+            });
+        </script>
+
+
+    <div class="col">
+        <label for="dueDate">Assignment DueDate</label> <!-- Assignment DueDate -->
+        <input type="date" class="form-control" name="dueDate" id="dueDate" value="<%= assignment.dueDate.toISOString().split('T')[0] %>" placeholder="">
+      </div>
+
+         <!-- JAVASCRIPT TO VALIDATE ASSIGNMENT DUEDATE ENTRY-->
+      <script>
+        const currentDate = new Date();
+        const dueDate = new Date(currentDate); // gets todays current date
+          dueDate.setDate(dueDate.getDate() + 14); // adds 14 days automattically from todays date, as per assignment requirements 
+      
+        const formattedDueDate = dueDate.toISOString().slice(0, 10); // formats the due date
+      
+        const dueDateInput = document.getElementById('dueDate');
+        dueDateInput.value = formattedDueDate; // inputs turns into formatted date 
+      </script>
+      
+
+    <div class="col">
+        <label for="assignmentName">Assignment Name</label>
+        <input type="text" class="form-control" name="assignmentName" id="assignmentName" value="<%= assignment.assignmentName %>" placeholder="Create a website" required>
+    </div>
+           
+    <!-- JAVASCRIPT TO VALIDATE ASSIGNMENT NAME ENTRY-->
+    <script>
+      const assignmentNameInput = document.getElementById('assignmentName');
+      assignmentNameInput.addEventListener('input', function() {
+        const enteredValue = assignmentNameInput.value;
+        const isValid = /^[A-Za-z\s]+$/.test(enteredValue); // /^[A-Za-z\s]+$/ - this means only leters a-z/A-Z and blank spaces are allowed
+    
+        if (!isValid) { // if input is not valid a popup message displays and alerts the user
+          assignmentNameInput.setCustomValidity('Only letters are allowed');
+        } else { // if input is valid no popup will display
+          assignmentNameInput.setCustomValidity('');
+        }
+      });
+      </script>
+    </div>
+
+    <div class="mb-4"> <!-- placement and alignment of forms-->
+        <label for="description">Assignment Description</label>  <!-- Assignment Description -->
+        <textarea type="text" class="form-control" name="description" id="description"   cols="10" rows="10" placeholder="Assignment Details"><%= assignment.description %></textarea>
+    </div>
+        <!-- JAVASCRIPT TO VALIDATE ASSIGNMENT DESCRIPTION ENTRY-->
+    <script>
+      const descriptionInput = document.getElementById('description');
+      descriptionInput.addEventListener('input', function() {
+        const enteredValue = descriptionInput.value;
+        const isValid = /^[A-Za-z0-9\s]+$/.test(enteredValue); // /^[A-Za-z0-9\s]+$/ - only allows letters a-z/A-z, numbers and spaces
+  
+        if (!isValid) { // if input is not valid a popup message displays and alerts the user
+          descriptionInput.setCustomValidity('Only letters, numbers and spaces are allowed');
+        } else { // if input is valid no popup will display
+          descriptionInput.setCustomValidity('');
+        }
+      });
+    </script>
+  </div>
+
+  <div class="mb-4"> <!-- placement and alignment of forms-->
+    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to update this assignment?')">Update Assignment</button> <!-- asks the user again to make sure they want to update -->
+  </div>
+</form>

@@ -1,0 +1,65 @@
+<!-- SEARCH REPORTS PAGE -->
+<header class="navbar navbar-dark sticky-top bg-dark justify-content-center">
+    <h2 style="color: #fff;">Find an Assignment Report Schedule<br><p style="font-size: medium;">Enter the name of the owner below</p>
+  <form role="search" method="POST" action="/searchReports">
+    
+    <input type="search" name="searchTerm" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+  </form>
+    </h1>
+  </header>
+    <!-- Breadcrumb nav to navigate to back to dashboard -->
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-dark p-2">
+        <li class="breadcrumb-item"><a href="/">DashBoard</a></li> <!-- Previous -->
+        <li class="breadcrumb-item active" style="color: #fff;">View Assignment Schedule Reports</li> <!-- Current -->
+    </ol>
+</nav>
+
+  <div class="justify-content-between"></div>
+
+  <div class="table-responsive">
+    <% if (reports.length > 0) { %> <!-- if its not empty then return results -->
+        <table class="table table-striped table-light table-sm"> <!-- Background colors, placement, spacing -->
+
+            <!-- COLUMN HEADER -->
+            <thead>
+                <tr> <!-- table row for columns -->
+                    <th scope="col">Student Name</th> <!-- column 1 -->
+                    <th scope="col">Assignment Name</th> <!-- column 2 -->
+                    <th scope="col">Due Date</th> <!-- column 3 -->
+                    <th scope="col">Edit</th> <!-- column 4 -->
+                </tr>
+            </thead>
+
+            <!-- BODY -->
+            <tbody>
+                <% reports.forEach(report => { %>  <!-- find from reports schema -->
+                    <tr class="align-middle">
+                        <td><%= report.studentName %></td> <!-- displaying name -->
+                        <td><%= report.assignmentName %></td> <!-- displaying assignment -->
+                        <td><%= report.dueDate %></td> <!-- displaying duedate -->
+                        <td>
+                        <div class="d-flex flex-row justify-content-end gap-2">
+                            <a href="/viewReport/<%= report._id %>" type="button" class="btn btn-light btn-small"> <!-- view button -->
+                                <i class="bi bi-eye"></i> <!-- eye icon ... Bootstrap -->
+                            </a>
+                            <a href="/editReport/<%= report._id %>" type="button" class="btn btn-secondary btn-small"> <!-- edit button -->
+                                <i class="bi bi-pencil"></i> <!-- pencil icon ... Bootstrap -->
+                            </a>
+                            <form action="/searchReports/<%= report._id %>?_method=DELETE" method="POST" class="position-relative" onsubmit="return confirm('Are you sure you want to delete this?');"> <!-- delete button -->
+                                <button type="submit" class="btn btn-danger btn-small"> <!-- rubbish icon ... Bootstrap -->
+                                  <i class="bi bi-trash3"></i>
+                                </button>
+                              </form>
+                              </div>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>  
+        </table>
+    <% } else {%>
+        <h2>No results found.</h2> <!-- if its empty then return -->
+    <% } %>
+</div>
+
+

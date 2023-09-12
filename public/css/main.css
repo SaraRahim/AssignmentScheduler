@@ -1,0 +1,36 @@
+/* MAIN CSS PAGE */
+
+/* BODY */
+.button-space {
+  margin-right: 10px; /* button space for main buttons in dashboard*/
+}
+
+.h2, label, .sidebar .nav-link, .viewpage {
+  color: #fff; /* keeps the color of the text white */
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed; /* keeps the sidebar going all the way to the bottom of the screen */ 
+  top: 0;  /* top, bottom, left is for the positioning */
+  bottom: 0;
+  left: 0;
+  padding: 48px 0 0; /* height of navbar */
+}
+
+/* NAVBAR */
+.form-control::placeholder { 
+  color: #000; /* keeps the color of the text white */
+  opacity: 0.7;
+}
+
+.form-control-dark::placeholder { 
+  color: #fff; /* keeps the color of the text white in the nav */
+  opacity: 0.7;
+}
+
+.form-control-dark {
+  color: #fff;  /* keeps the color of the text white */
+  background-color: rgba(255, 255, 255, .1); /* color of the search bar and the boarder of the search bar */
+  border-color: rgba(255, 255, 255, .1);
+}

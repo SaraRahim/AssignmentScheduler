@@ -1,0 +1,71 @@
+  <!-- EDIT ASSIGNMENT PAGE -->
+  <div class="container-fluid bg-dark pt-3 pb-2 mb-3 border-bottom"> <!-- Background colors, placement, spacing -->
+    <div>
+    <h1 class="h2" style="color: white;">Viewing <%= assignment.assignmentName %> || <%= assignment.moduleName %></h1> <!-- Displays the name and module of the assignment thats being edited -->
+        <div>
+            <!-- Breadcrumb nav to navigate to back to dashboard -->
+            <nav aria-label="breadcrumb" style="color: #fff;">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">DashBoard </a></li> <!-- Previous -->
+                    <li class="breadcrumb-item active" style="color: #fff;">New Assignment</li> <!-- Current -->
+                </ol>
+            </nav>
+   
+          <!-- Displays the last updated time and assignmentID -->
+          <div class="col text-end fw-lighter"> <!-- placement and alignment of forms-->
+              <b class="viewpage">Last Updated <%= new Date(assignment.updatedAt).toUTCString() %></b><br>
+              <b class="viewpage">Assignment ID:<%= assignment._id %></b>
+          </div>
+      </div>
+  </div>
+
+<ul class="list-group"> <!-- classifying this as an unordered list-->
+    <li class="list-group-item list-group-item-dark"> 
+        <div class="row">
+            <div class="col" style="max-width: 200px;"><b>Assignment Name: </b></div> <!-- list with dark background for assignment name of the current chosen assignment-->
+            <div class="col"><%= assignment.assignmentName %></div>
+        </div>
+    </li>
+    <li class="list-group-item list-group-item-dark">
+        <div class="row">
+            <div class="col" style="max-width: 200px;"><b>Owner Name: </b></div> <!-- list with dark background for owner name of the current chosen assignment-->
+            <div class="col"><%= assignment.ownerName %></div>
+        </div>
+    </li>
+    <li class="list-group-item list-group-item-dark">
+        <div class="row">
+            <div class="col" style="max-width: 200px;"><b>Module Name: </b></div> <!-- list with dark background for module name of the current chosen assignment-->
+            <div class="col"><%= assignment.moduleName %></div>
+        </div>
+    </li>
+    <li class="list-group-item list-group-item-dark">
+        <div class="row">
+            <div class="col" style="max-width: 200px;"><b>Assignment Weight: </b></div> <!-- list with dark background for assignment weight of the current chosen assignment-->
+            <div class="col"><%= assignment.weight %>%</div>
+        </div>
+    </li>
+    <li class="list-group-item list-group-item-dark">
+        <div class="row">
+            <div class="col" style="max-width: 200px;"><b>Assignment DueDate: </b></div> <!-- list with dark background for assignment due date of the current chosen assignment-->
+            <div class="col"><%= assignment.dueDate.toUTCString()  %></div>
+        </div>
+    </li>
+    <li class="list-group-item list-group-item-dark">
+        <div class="row">
+            <div class="col" style="max-width: 200px;"><b>Created At: </b></div> <!-- list with dark background for assignment creation time of the current chosen assignment-->
+            <div class="col"><%= new Date(assignment.createdAt).toUTCString() %></div>
+        </div>
+    </li>
+    <li class="list-group-item list-group-item-dark">
+        <div class="row">
+            <div class="col" style="max-width: 200px;"><b>Last Updated At: </b></div> <!-- list with dark background for assignment last updated time of the current chosen assignment-->
+            <div class="col"><%= new Date(assignment.updatedAt).toUTCString() %></div>
+        </div>
+    </li>
+    <li class="list-group-item list-group-item-dark">
+        <div class="row">
+            <div class="col" style="max-width: 200px;"><b>Description: </b></div> <!-- list with dark background for assignment description of the current chosen assignment-->
+            <div class="col"><%= assignment.description %></div>
+        </div>
+    </li>
+</ul><br>
